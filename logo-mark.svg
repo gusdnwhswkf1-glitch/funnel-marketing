@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="분양퍼널">
+  <!-- 1단 : 여론 형성 — 집(분양 현장)이 들어오는 가장 넓은 입구 -->
+  <path d="M10 16 H110 L88 60 H32 Z" fill="#4176B5"/>
+  <!-- 집 : 1단 안에 음각 -->
+  <path d="M60 19 L83 39 H37 Z" fill="#fff"/>
+  <path d="M45 39 H75 V55 H45 Z" fill="#fff"/>
+  <rect x="54" y="43" width="12" height="9" fill="#4176B5"/>
+  <!-- 2단 : 광고 유입 -->
+  <path d="M33.5 66 H86.5 L74 92 H46 Z" fill="#7CA5D3"/>
+  <!-- 3단 : 계약 -->
+  <path d="M47.5 98 H72.5 L60 117 Z" fill="#AEC8E4"/>
+</svg>

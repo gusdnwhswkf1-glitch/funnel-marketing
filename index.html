@@ -321,9 +321,11 @@ header{
 }
 header.stuck{border-bottom-color:var(--line);box-shadow:0 8px 24px -20px rgba(14,17,20,.5)}
 .hd{display:flex;align-items:center;justify-content:space-between;height:66px}
-.logo{display:flex;align-items:baseline;gap:2px;font-weight:800;font-size:19px;letter-spacing:-.02em}
-.logo .mk{font-weight:500;font-size:13px;letter-spacing:.06em;color:var(--grey);margin-left:7px;transform:translateY(-1px)}
-.logo .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:4px;transform:translateY(-8px)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:19px;letter-spacing:-.025em}
+.logo-mark{width:27px;height:27px;flex-shrink:0}
+.logo .lg-ko{line-height:1}
+.logo .mk{font-family:var(--mono);font-weight:400;font-size:11.5px;letter-spacing:.08em;color:var(--grey-2);margin-left:1px}
+@media(max-width:520px){.logo .mk{display:none}.logo{gap:8px}.logo-mark{width:24px;height:24px}}
 .hd-right{display:flex;align-items:center;gap:10px}
 
 /* 앵커 네비게이션 */
@@ -698,7 +700,10 @@ h1 .hl::after{
 /* ============ FOOTER ============ */
 footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 .ft{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
-.ft-logo{font-weight:800;font-size:17px;letter-spacing:-.02em;margin-bottom:14px;display:flex;align-items:baseline}
+.ft-logo{display:flex;align-items:center;gap:9px;font-weight:800;font-size:17px;letter-spacing:-.025em;margin-bottom:16px}
+.ft-logo .logo-mark{width:24px;height:24px;flex-shrink:0}
+.ft-logo .lg-ko{line-height:1}
+.ft-logo .mk{font-family:var(--mono);font-weight:400;font-size:10.5px;letter-spacing:.08em;color:var(--grey-2)}
 .ft-brand{
   font-size:13px;color:var(--grey-d);line-height:1.7;margin-bottom:16px;
   padding-bottom:16px;border-bottom:1px solid var(--line-soft);max-width:34ch;
@@ -738,7 +743,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 <!-- ============ HEADER ============ -->
 <header id="hd">
   <div class="wrap hd">
-    <a href="#top" class="logo">분양퍼널<span class="dot"></span><span class="mk">BUNYANG FUNNEL</span></a>
+    <a href="#top" class="logo" aria-label="분양퍼널 홈"><svg class="logo-mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M10 16 H110 L88 60 H32 Z" fill="#4176B5"/><path d="M60 19 L83 39 H37 Z" fill="#fff"/><path d="M45 39 H75 V55 H45 Z" fill="#fff"/><rect x="54" y="43" width="12" height="9" fill="#4176B5"/><path d="M33.5 66 H86.5 L74 92 H46 Z" fill="#7CA5D3"/><path d="M47.5 98 H72.5 L60 117 Z" fill="#AEC8E4"/></svg><span class="lg-ko">분양퍼널</span><span class="mk">BUNYANG FUNNEL</span></a>
     <nav class="gnb">
       <a href="#report">데이터 리포트</a>
       <a href="#why">차별점</a>
@@ -1111,7 +1116,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 <footer>
   <div class="wrap ft">
     <div>
-      <div class="ft-logo">분양퍼널<span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:4px;transform:translateY(-7px)"></span><span class="mk" style="font-weight:500;font-size:12px;letter-spacing:.06em;color:var(--grey);margin-left:7px">BUNYANG FUNNEL</span></div>
+      <div class="ft-logo"><svg class="logo-mark" viewBox="0 0 120 120" aria-hidden="true"><path d="M10 16 H110 L88 60 H32 Z" fill="#4176B5"/><path d="M60 19 L83 39 H37 Z" fill="#fff"/><path d="M45 39 H75 V55 H45 Z" fill="#fff"/><rect x="54" y="43" width="12" height="9" fill="#4176B5"/><path d="M33.5 66 H86.5 L74 92 H46 Z" fill="#7CA5D3"/><path d="M47.5 98 H72.5 L60 117 Z" fill="#AEC8E4"/></svg><span class="lg-ko">분양퍼널</span><span class="mk">BUNYANG FUNNEL</span></div>
       <div class="ft-brand">분양퍼널은 <b>퍼널마케팅</b>의 분양 마케팅 전문 브랜드입니다.</div>
       <div class="ft-info">
         <b>상호</b>퍼널마케팅<br>

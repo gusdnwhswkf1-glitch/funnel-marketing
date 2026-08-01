@@ -1,6 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
   <rect width="64" height="64" rx="12" fill="#4176B5"/>
-  <path d="M14 18h36l-8 12H22z" fill="#fff" opacity=".55"/>
-  <path d="M23 33h18l-5 9h-8z" fill="#fff" opacity=".8"/>
-  <rect x="29" y="45" width="6" height="6" rx="1" fill="#fff"/>
+  <g transform="translate(5.6 3) scale(.435)">
+    <path d="M10 16 H110 L88 60 H32 Z" fill="#fff"/>
+    <path d="M60 19 L83 39 H37 Z" fill="#4176B5"/>
+    <path d="M45 39 H75 V55 H45 Z" fill="#4176B5"/>
+    <path d="M33.5 66 H86.5 L74 92 H46 Z" fill="#fff" opacity=".76"/>
+    <path d="M47.5 98 H72.5 L60 117 Z" fill="#fff" opacity=".52"/>
+  </g>
 </svg>
