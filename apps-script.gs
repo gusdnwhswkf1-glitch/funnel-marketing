@@ -54,9 +54,21 @@ function doPost(e) {
     const data = parseBody_(e);
     if (!data) return json_({ ok: false, error: 'EMPTY_BODY' });
 
-    // 회사명·담당자·연락처가 전부 비어 있으면 저장하지 않습니다 (스팸 방지)
+    // 봇 차단 — 사람 눈에 보이지 않는 칸(website)이 채워져 있으면 자동 입력입니다.
+    // ok:true 를 돌려주어 봇이 재시도하지 않게 하되, 시트에는 쓰지 않습니다.
+    if (data.website) {
+      return json_({ ok: true, skipped: 'BOT' });
+    }
+
+    // 회사명·담당자·연락처가 전부 비어 있으면 저장하지 않습니다
     if (!data.company && !data.name && !data.phone) {
       return json_({ ok: false, error: 'EMPTY_LEAD' });
+    }
+
+    // 링크·HTML 이 섞인 문의 내용은 스팸일 가능성이 높습니다
+    var msg = String(data.message || '');
+    if ((msg.match(/https?:\/\//g) || []).length >= 2 || /<a\s|\[url=/i.test(msg)) {
+      return json_({ ok: true, skipped: 'SPAM_LINKS' });
     }
 
     const ss = SpreadsheetApp.getActiveSpreadsheet();

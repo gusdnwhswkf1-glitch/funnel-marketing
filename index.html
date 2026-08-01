@@ -646,6 +646,9 @@ h1 .hl::after{
 }
 .field input::placeholder,.field textarea::placeholder{color:#A2A9B1}
 .field.err input,.field.err textarea{border-color:#D9534F}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:2px}
+.field input:focus-visible,.field textarea:focus-visible,.field select:focus-visible{outline:none}
 .agree{display:flex;align-items:flex-start;gap:10px;margin:6px 0 20px;cursor:pointer}
 .agree input{width:17px;height:17px;margin-top:2px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
 .agree span{font-size:12.5px;color:var(--grey);line-height:1.6}
@@ -725,7 +728,9 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 .ft-brand b{color:var(--ink-2);font-weight:700}
 .ft-info{font-family:var(--mono);font-size:11.5px;color:var(--grey);line-height:2;letter-spacing:.01em}
 .ft-info b{color:var(--ink-2);font-weight:500;margin-right:7px}
-.ft-copy{font-family:var(--mono);font-size:10.5px;color:var(--grey-2);letter-spacing:.06em;align-self:flex-end}
+.ft-copy{font-family:var(--mono);font-size:10.5px;color:var(--grey-2);letter-spacing:.06em;align-self:flex-end;text-align:right;line-height:2.2}
+.ft-copy a{color:var(--ink-2);font-weight:500}
+.ft-copy a:hover{color:var(--blue)}
 @media(max-width:640px){footer{padding-bottom:110px}}
 
 /* ============ 모바일 플로팅 바 ============ */
@@ -1077,12 +1082,16 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
           <div class="field"><label for="region">지역</label>
             <input type="text" id="region" name="region" placeholder="경기 남양주시"></div>
         </div>
+        <div class="hp" aria-hidden="true">
+          <label for="website">웹사이트</label>
+          <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+        </div>
         <div class="field"><label for="message">현장 상황 · 문의 내용</label>
           <textarea id="message" name="message" placeholder="세대수, 분양 시기, 현재 진행 상황을 알려주세요. 이미 광고를 돌리고 계시면 DB 수량과 통화 연결률까지 적어주시면 더 정확합니다."></textarea></div>
 
         <label class="agree">
           <input type="checkbox" id="agree">
-          <span>상담 진행을 위한 개인정보(회사명·담당자명·연락처) 수집 및 이용에 동의합니다. 수집된 정보는 상담 목적으로만 사용되며 3년 후 파기됩니다.</span>
+          <span>상담 진행을 위한 개인정보(회사명·담당자명·연락처) 수집 및 이용에 동의합니다. 수집된 정보는 상담 목적으로만 사용되며 3년 후 파기됩니다. <a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a></span>
         </label>
 
         <button type="submit" class="btn btn-primary submit" id="submitBtn">무료 진단 받기
@@ -1169,7 +1178,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
         <span style="margin-left:52px">메타·유튜브 숏폼 광고 · 블로그/카페 바이럴 · CRM 리드 관리</span>
       </div>
     </div>
-    <div class="ft-copy">© 2026 FUNNEL MARKETING. ALL RIGHTS RESERVED.</div>
+    <div class="ft-copy"><a href="privacy.html">개인정보처리방침</a><br>© 2026 FUNNEL MARKETING. ALL RIGHTS RESERVED.</div>
   </div>
 </footer>
 
@@ -1253,6 +1262,7 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.rv, .card, .svc').forEach(el => io.observe(el));
 
 /* ---------- 폼 ---------- */
+const pageLoadedAt = Date.now();
 const form = document.getElementById('leadForm');
 const msg  = document.getElementById('formMsg');
 const btn  = document.getElementById('submitBtn');
@@ -1272,7 +1282,8 @@ form.addEventListener('submit', async (e) => {
     phone:       form.phone.value.trim(),
     site:        form.site.value.trim(),
     region:      form.region.value.trim(),
-    message:     form.message.value.trim()
+    message:     form.message.value.trim(),
+    website:     form.website.value
   };
 
   // 검증
@@ -1297,20 +1308,35 @@ form.addEventListener('submit', async (e) => {
   btn.style.opacity = '.6';
   btn.textContent = '전송 중...';
 
+  // 봇 차단 — 사람 눈에 안 보이는 칸이 채워졌거나 3초 안에 제출된 경우
+  const tooFast = (Date.now() - pageLoadedAt) < 3000;
+  if(data.website || tooFast){
+    form.reset();
+    show('ok', '신청이 접수되었습니다. 영업일 기준 24시간 내에 010-8981-2510 으로 연락드리겠습니다.');
+    restoreBtn();
+    return;
+  }
+
   if(ENDPOINT){
     try{
-      // Apps Script 웹 앱은 CORS 응답을 못 주므로 no-cors 로 보냅니다.
-      // text/plain 을 써야 preflight 없이 통과합니다.
-      await fetch(ENDPOINT, {
+      // text/plain 이면 preflight 없이 통과하고, 응답은 CORS 로 읽습니다.
+      const res  = await fetch(ENDPOINT, {
         method:'POST',
-        mode:'no-cors',
+        mode:'cors',
         headers:{'Content-Type':'text/plain;charset=utf-8'},
         body: JSON.stringify(data)
       });
-      form.reset();
-      show('ok', '신청이 접수되었습니다. 영업일 기준 24시간 내에 010-8981-2510 으로 연락드리겠습니다.');
+      const json = await res.json();
+      if(json && json.ok){
+        form.reset();
+        show('ok', '신청이 접수되었습니다. 영업일 기준 24시간 내에 010-8981-2510 으로 연락드리겠습니다.');
+      }else{
+        throw new Error(json && json.error ? json.error : 'UNKNOWN');
+      }
     }catch(err){
-      show('no', '전송에 실패했습니다. 010-8981-2510 으로 전화 주시면 바로 도와드리겠습니다.');
+      // 저장에 실패했으면 반드시 알려야 문의가 사라지지 않습니다
+      show('no', '전송에 실패했습니다. 죄송하지만 010-8981-2510 으로 전화 주시면 바로 도와드리겠습니다.');
+      console.error('[문의 전송 실패]', err);
     }
   }else{
     // 시트 미연동 상태 — 메일 앱으로 전달
@@ -1323,10 +1349,14 @@ form.addEventListener('submit', async (e) => {
     show('ok', '메일 앱이 열립니다. 전송해 주시면 24시간 내에 회신드리겠습니다.');
   }
 
+  restoreBtn();
+});
+
+function restoreBtn(){
   btn.disabled = false;
   btn.style.opacity = '1';
   btn.innerHTML = '무료 진단 받기 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
-});
+}
 
 /* 연락처 자동 하이픈 */
 form.phone.addEventListener('input', (e) => {
