@@ -323,6 +323,25 @@ header.stuck{border-bottom-color:var(--line);box-shadow:0 8px 24px -20px rgba(14
 .logo .mk{font-weight:500;font-size:13px;letter-spacing:.06em;color:var(--grey);margin-left:7px;transform:translateY(-1px)}
 .logo .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:4px;transform:translateY(-8px)}
 .hd-right{display:flex;align-items:center;gap:10px}
+
+/* 앵커 네비게이션 */
+.gnb{display:flex;align-items:center;gap:clamp(16px,2.2vw,30px)}
+.gnb a{
+  position:relative;padding:7px 0;font-size:14.5px;font-weight:600;
+  letter-spacing:-.025em;color:var(--ink-2);white-space:nowrap;
+  transition:color .2s;
+}
+.gnb a::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--blue);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s cubic-bezier(.2,.8,.2,1);
+}
+.gnb a:hover{color:var(--blue)}
+.gnb a:hover::after,.gnb a.on::after{transform:scaleX(1)}
+.gnb a.on{color:var(--blue)}
+@media(max-width:1080px){.gnb{display:none}}
+
+/* 고정 헤더에 제목이 가리지 않도록 */
+section[id]{scroll-margin-top:82px}
 .hd-tel{
   display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:2px;
   border:1px solid var(--line);font-family:var(--mono);font-size:14px;font-weight:500;
@@ -718,6 +737,12 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 <header id="hd">
   <div class="wrap hd">
     <a href="#top" class="logo">분양퍼널<span class="dot"></span><span class="mk">BUNYANG FUNNEL</span></a>
+    <nav class="gnb">
+      <a href="#report">데이터 리포트</a>
+      <a href="#why">차별점</a>
+      <a href="#service">서비스</a>
+      <a href="#faq">자주 묻는 질문</a>
+    </nav>
     <div class="hd-right">
       <a href="tel:01089812510" class="hd-tel mono"><span>010-8981-2510</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
@@ -776,7 +801,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 </section>
 
 <!-- ============ 02 리포트 ============ -->
-<section class="reports">
+<section class="reports" id="report">
   <div class="wrap">
     <div class="sec-label rv"><b>02</b> / 06 &nbsp;DB QUALITY</div>
     <h2 class="sec-title rv">DB의 질은 느낌이 아니라<br>숫자로 잽니다</h2>
@@ -849,7 +874,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 </section>
 
 <!-- ============ 03 차별점 ============ -->
-<section>
+<section id="why">
   <div class="blueprint"></div>
   <div class="wrap">
     <div class="sec-label rv"><b>03</b> / 06 &nbsp;WHY FUNNEL</div>
@@ -887,7 +912,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 </section>
 
 <!-- ============ 04 서비스 ============ -->
-<section class="services">
+<section class="services" id="service">
   <div class="blueprint"></div>
   <div class="wrap">
     <div class="sec-label rv"><b>04</b> / 06 &nbsp;SERVICE</div>
@@ -1142,6 +1167,27 @@ window.addEventListener('scroll', () => {
   if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
 }, {passive:true});
 onScroll();
+
+/* ---------- 앵커 메뉴 현재 위치 표시 ---------- */
+const navLinks = [...document.querySelectorAll('.gnb a')];
+const navMap = new Map();
+navLinks.forEach(a => {
+  const el = document.querySelector(a.getAttribute('href'));
+  if(el) navMap.set(el, a);
+});
+if(navMap.size){
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const link = navMap.get(e.target);
+      if(!link) return;
+      if(e.isIntersecting){
+        navLinks.forEach(a => a.classList.remove('on'));
+        link.classList.add('on');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  navMap.forEach((_, el) => spy.observe(el));
+}
 
 /* ---------- 스크롤 리빌 ---------- */
 const io = new IntersectionObserver((entries) => {
