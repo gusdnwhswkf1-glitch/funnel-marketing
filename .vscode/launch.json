@@ -1,0 +1,21 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "📱 모바일 뷰 (Edge DevTools)",
+      "type": "vscode-edge-devtools.debug",
+      "request": "launch",
+      "url": "http://localhost:3000/index.html",
+      "webRoot": "${workspaceFolder}",
+      "browserFlavor": "Stable"
+    },
+    {
+      "name": "🖥️ 데스크탑 뷰 (Edge DevTools)",
+      "type": "vscode-edge-devtools.debug",
+      "request": "launch",
+      "url": "http://localhost:3000/index.html",
+      "webRoot": "${workspaceFolder}",
+      "browserFlavor": "Stable"
+    }
+  ]
+}

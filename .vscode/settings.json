@@ -1,0 +1,18 @@
+{
+  // ── Live Preview (내장 서버 + 미리보기 탭) ──
+  "livePreview.defaultPreviewPath": "/index.html",
+  "livePreview.openPreviewTarget": "Editor Preview",
+  "livePreview.portNumber": 3000,
+  "livePreview.autoRefreshPreview": "On All Changes in Editor",
+  "livePreview.showStatusBarItem": true,
+  "livePreview.showServerStatusNotifications": false,
+
+  // ── Edge DevTools (기기 에뮬레이션용, Edge 설치 시 동작) ──
+  "vscode-edge-devtools.webRoot": "${workspaceFolder}",
+  "vscode-edge-devtools.defaultUrl": "http://localhost:3000/index.html",
+  "vscode-edge-devtools.defaultEntrypoint": "index.html",
+  "vscode-edge-devtools.browserFlavor": "Stable",
+  "vscode-edge-devtools.hostname": "localhost",
+  "vscode-edge-devtools.port": 9222,
+  "vscode-edge-devtools.webhint": false
+}

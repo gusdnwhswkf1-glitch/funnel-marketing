@@ -696,6 +696,8 @@ h1 .hl::after{
 .faq-item[open] .faq-ic::after{opacity:0}
 .faq-item[open] .faq-ic::before{background:var(--blue)}
 .faq-item[open] summary{padding-bottom:6px}
+.faq-item[open] .faq-a{animation:faqIn .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes faqIn{from{opacity:0;transform:translateY(-7px)}to{opacity:1;transform:none}}
 .faq-a{
   padding:0 clamp(18px,3vw,30px) clamp(22px,2.6vw,28px);
   margin-left:calc(clamp(12px,2vw,20px) + 30px);
@@ -739,6 +741,32 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
 .float a.tel{flex:0 0 44%}
 @media(max-width:820px){.float{display:flex}}
 
+/* ============ 터치 기기 피드백 (hover 대체) ============ */
+@media(hover:none){
+  .btn{transition:transform .12s cubic-bezier(.3,.7,.3,1),background .15s,box-shadow .15s}
+  .btn:active{transform:scale(.975)}
+  .btn-primary:active{background:var(--blue-deep);box-shadow:0 1px 0 rgba(43,81,131,.9),0 4px 12px -8px rgba(65,118,181,.9)}
+  .btn-ghost:active{background:var(--bg-alt);border-color:var(--grey-2)}
+
+  .card{transition:transform .18s cubic-bezier(.3,.7,.3,1),box-shadow .18s}
+  .card:active{transform:scale(.99)}
+
+  .faq-item summary{transition:background .15s}
+  .faq-item summary:active{background:var(--bg-alt)}
+
+  .direct a{transition:background .15s}
+  .direct a:active{background:var(--blue-wash)}
+
+  .svc{transition:background .15s}
+  .svc:active{background:rgba(255,255,255,.05)}
+  .svc:active::before{transform:scaleY(1)}
+
+  .hd-tel{transition:background .15s,border-color .15s}
+  .hd-tel:active{background:var(--bg-alt);border-color:var(--blue)}
+
+  .logo:active{opacity:.7}
+}
+
 /* 스크롤 리빌 */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
 .rv.is-in{opacity:1;transform:none}
@@ -747,6 +775,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
   *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
   .rv{opacity:1;transform:none}
   .stage{opacity:1;transform:none}
+  .faq-item[open] .faq-a{animation:none}
 }
 </style>
 </head>
