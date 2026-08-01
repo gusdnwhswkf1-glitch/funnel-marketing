@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>퍼널마케팅 | 분양은 감으로 하는 게 아닙니다</title>
+<meta name="description" content="분양 현장 DB의 유효율을 진단하고 광고로 끌어올립니다. 지금 받고 계신 DB가 몇 %나 통화로 이어지는지 무료로 진단해 드립니다.">
+<meta property="og:title" content="퍼널마케팅 | 분양은 감으로 하는 게 아닙니다">
+<meta property="og:description" content="수량은 이미 충분합니다. 문제는 질입니다. 분양 DB 유효율 무료 진단.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   퍼널마케팅 — 분양 광고 대행
+   Design: 도면/데이터 시트. 청사진 그리드 위에 스위스 타이포.
+   숫자는 전부 모노스페이스 — "감이 아닌 데이터"를 활자로 증명.
+   ============================================================ */
+
+:root{
+  --blue:#4176B5;
+  --blue-deep:#2B5183;
+  --blue-wash:#EDF3FA;
+  --ink:#0E1114;
+  --ink-2:#3A4149;
+  --grey:#767E87;
+  --grey-d:#59616A;
+  --grey-2:#848C94;
+  --line:#E2E6EB;
+  --line-soft:#EFF2F5;
+  --bg:#FFFFFF;
+  --bg-alt:#F6F8FA;
+  --sans:'Pretendard Variable',Pretendard,-apple-system,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --pad:clamp(20px,5vw,72px);
+  --maxw:1240px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  word-break:keep-all;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button,input,textarea,select{font:inherit;color:inherit}
+
+/* --- 공통 --- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+
+.sec-label{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  color:var(--grey-2);text-transform:uppercase;margin-bottom:22px;
+}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.sec-label b{color:var(--blue);font-weight:600}
+
+h2.sec-title{
+  font-size:clamp(26px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;
+  line-height:1.25;margin-bottom:16px;
+}
+.sec-sub{font-size:clamp(15px,1.8vw,17px);color:var(--grey);max-width:58ch;line-height:1.75}
+
+section{padding:clamp(72px,10vw,132px) 0;position:relative}
+
+/* 청사진 그리드 배경 */
+.blueprint{
+  position:absolute;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(to right,var(--line-soft) 1px,transparent 1px),
+    linear-gradient(to bottom,var(--line-soft) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 30%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 40%,#000 30%,transparent 100%);
+}
+section>.wrap{position:relative;z-index:1}
+
+/* --- 버튼 --- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:15px 28px;border:1px solid transparent;border-radius:2px;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;cursor:pointer;
+  transition:transform .18s cubic-bezier(.2,.7,.3,1),background .18s,color .18s,border-color .18s,box-shadow .18s;
+}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 1px 0 rgba(43,81,131,.9),0 10px 26px -12px rgba(65,118,181,.75)}
+.btn-primary:hover{background:var(--blue-deep);transform:translateY(-2px);box-shadow:0 1px 0 rgba(43,81,131,.9),0 16px 32px -14px rgba(65,118,181,.85)}
+.btn-ghost{background:#fff;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn svg{flex-shrink:0}
+
+/* ============ HEADER ============ */
+header{
+  position:sticky;top:0;z-index:60;background:rgba(255,255,255,.86);
+  backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .25s,box-shadow .25s;
+}
+header.stuck{border-bottom-color:var(--line);box-shadow:0 8px 24px -20px rgba(14,17,20,.5)}
+.hd{display:flex;align-items:center;justify-content:space-between;height:66px}
+.logo{display:flex;align-items:baseline;gap:2px;font-weight:800;font-size:19px;letter-spacing:-.02em}
+.logo .mk{font-weight:500;font-size:13px;letter-spacing:.06em;color:var(--grey);margin-left:7px;transform:translateY(-1px)}
+.logo .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:4px;transform:translateY(-8px)}
+.hd-right{display:flex;align-items:center;gap:10px}
+.hd-tel{
+  display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:2px;
+  border:1px solid var(--line);font-family:var(--mono);font-size:14px;font-weight:500;
+  transition:border-color .2s,color .2s;
+}
+.hd-tel:hover{border-color:var(--blue);color:var(--blue)}
+.hd-cta{padding:11px 20px;font-size:14px}
+@media(max-width:720px){.hd-tel span{display:none}.hd-tel{padding:9px 12px}}
+
+/* ============ HERO ============ */
+.hero{padding-top:clamp(56px,8vw,96px);padding-bottom:clamp(64px,9vw,112px);overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,5vw,76px);align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:48px}}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;padding:7px 14px;
+  border:1px solid var(--line);border-radius:100px;background:#fff;
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--ink-2);margin-bottom:26px;
+}
+.eyebrow i{width:5px;height:5px;border-radius:50%;background:var(--blue);
+  animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(65,118,181,.5)}50%{opacity:.7;box-shadow:0 0 0 5px rgba(65,118,181,0)}}
+
+h1{
+  font-size:clamp(34px,6vw,62px);font-weight:800;line-height:1.16;
+  letter-spacing:-.045em;margin-bottom:22px;
+}
+h1 .hl{position:relative;display:inline-block;color:var(--blue)}
+h1 .hl::after{
+  content:'';position:absolute;left:0;right:0;bottom:.08em;height:.14em;
+  background:var(--blue);opacity:.16;transform:scaleX(0);transform-origin:left;
+  animation:sweep .9s .5s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes sweep{to{transform:scaleX(1)}}
+
+.hero-lead{font-size:clamp(16px,2.1vw,19px);color:var(--ink-2);line-height:1.75;margin-bottom:14px;font-weight:500}
+.hero-desc{font-size:15.5px;color:var(--grey);line-height:1.8;max-width:46ch;margin-bottom:34px}
+.hero-desc b{color:var(--ink-2);font-weight:700}
+.hero-cta{display:flex;flex-wrap:wrap;gap:11px;margin-bottom:30px}
+.hero-note{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--grey-2)}
+.hero-note svg{color:var(--blue)}
+
+/* 퍼널 비주얼 */
+.funnel{position:relative;padding:8px}
+.funnel-frame{
+  position:relative;border:1px solid var(--line);background:#fff;
+  padding:clamp(22px,3.5vw,38px) clamp(16px,3vw,32px);
+  box-shadow:0 40px 80px -60px rgba(14,17,20,.6);
+}
+.funnel-frame::before,.funnel-frame::after{
+  content:'';position:absolute;width:9px;height:9px;border:1px solid var(--blue);background:#fff;
+}
+.funnel-frame::before{top:-5px;left:-5px}
+.funnel-frame::after{bottom:-5px;right:-5px}
+.funnel-cap{
+  display:flex;justify-content:space-between;align-items:baseline;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;color:var(--grey-2);
+  padding-bottom:14px;margin-bottom:20px;border-bottom:1px solid var(--line-soft);
+}
+.stage{
+  position:relative;margin:0 auto 7px;padding:15px 20px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--bg-alt);border:1px solid var(--line);
+  clip-path:polygon(0 0,100% 0,calc(100% - 13px) 100%,13px 100%);
+  opacity:0;transform:translateY(-12px);
+  animation:drop .62s cubic-bezier(.2,.8,.25,1) forwards;
+}
+.stage:nth-child(2){width:100%;animation-delay:.15s}
+.stage:nth-child(3){width:84%;animation-delay:.3s}
+.stage:nth-child(4){width:68%;animation-delay:.45s}
+.stage:nth-child(5){
+  width:52%;background:var(--blue);border-color:var(--blue);color:#fff;
+  animation-delay:.6s;box-shadow:0 14px 28px -16px rgba(65,118,181,.9);
+}
+@keyframes drop{to{opacity:1;transform:translateY(0)}}
+.stage-nm{font-size:14.5px;font-weight:700;letter-spacing:-.02em;white-space:nowrap}
+.stage-ch{font-family:var(--mono);font-size:10.5px;color:var(--grey);letter-spacing:.02em;text-align:right}
+.stage:nth-child(5) .stage-ch{color:rgba(255,255,255,.82)}
+@media(max-width:520px){
+  .stage{padding:13px 16px}
+  .stage-nm{font-size:13px}
+  .stage-ch{font-size:9.5px}
+  .stage:nth-child(3){width:88%}.stage:nth-child(4){width:76%}.stage:nth-child(5){width:64%}
+}
+.funnel-foot{
+  margin-top:18px;padding-top:14px;border-top:1px solid var(--line-soft);
+  font-family:var(--mono);font-size:10.5px;color:var(--grey-2);letter-spacing:.04em;text-align:center;
+}
+
+/* ============ 02 리포트 ============ */
+.reports{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+@media(max-width:980px){.rep-grid{grid-template-columns:1fr;max-width:560px}}
+
+.card{
+  background:#fff;border:1px solid var(--line);padding:24px;
+  display:flex;flex-direction:column;
+  transition:transform .3s cubic-bezier(.2,.7,.3,1),box-shadow .3s,border-color .3s;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--grey-2);box-shadow:0 28px 50px -34px rgba(14,17,20,.45)}
+.card-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.card-no{font-family:var(--mono);font-size:11px;color:var(--blue);letter-spacing:.1em;font-weight:600}
+.card-live{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;color:var(--grey-2);letter-spacing:.1em}
+.card-live i{width:5px;height:5px;border-radius:50%;background:#3BB273;animation:pulse 2s infinite}
+.card h3{font-size:17px;font-weight:800;letter-spacing:-.025em;margin-bottom:7px}
+.card p.d{font-size:13.5px;color:var(--grey);line-height:1.7;margin-bottom:20px}
+.card-viz{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:172px}
+.card-cap{
+  margin-top:18px;padding-top:13px;border-top:1px dashed var(--line);
+  font-family:var(--mono);font-size:10px;color:var(--grey-2);letter-spacing:.02em;
+}
+
+/* 파이프라인 */
+.pipe{display:flex;flex-direction:column;gap:11px}
+.pipe-row{display:grid;grid-template-columns:64px 1fr 38px;align-items:center;gap:11px}
+.pipe-lb{font-size:11.5px;color:var(--ink-2);font-weight:600;letter-spacing:-.01em}
+.pipe-track{height:7px;background:var(--line-soft);border-radius:1px;overflow:hidden}
+.pipe-fill{height:100%;background:var(--blue);width:0;border-radius:1px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.pipe-row:nth-child(1) .pipe-fill{opacity:1}
+.pipe-row:nth-child(2) .pipe-fill{opacity:.8}
+.pipe-row:nth-child(3) .pipe-fill{opacity:.6}
+.pipe-row:nth-child(4) .pipe-fill{opacity:.42}
+.pipe-vl{font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink);font-weight:500}
+
+/* 리포트 테이블 */
+.rtab{width:100%;border-collapse:collapse;font-size:12px}
+.rtab th{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;color:var(--grey-2);
+  text-align:right;padding:0 0 9px;border-bottom:1px solid var(--line);font-weight:500;
+}
+.rtab th:first-child{text-align:left}
+.rtab td{padding:9px 0;border-bottom:1px solid var(--line-soft);text-align:right;font-family:var(--mono);font-size:12px;color:var(--ink-2)}
+.rtab td:first-child{text-align:left;font-family:var(--sans);font-weight:600;font-size:12.5px;color:var(--ink)}
+.rtab tr:last-child td{border-bottom:none;font-weight:600;color:var(--ink)}
+.rtab .down{color:#2E9E64}
+
+/* 라인차트 */
+.chart{position:relative}
+.chart svg{width:100%;height:auto;overflow:visible}
+.chart-x{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--grey-2);margin-top:9px;letter-spacing:.04em}
+.chart-delta{
+  display:inline-flex;align-items:center;gap:6px;margin-top:14px;padding:6px 11px;
+  background:rgba(46,158,100,.09);border-radius:2px;white-space:nowrap;
+  font-family:var(--mono);font-size:11px;color:#2E9E64;font-weight:600;letter-spacing:.01em;
+}
+.cline{stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1.5s cubic-bezier(.3,.7,.3,1)}
+.is-in .cline{stroke-dashoffset:0}
+.cdot{opacity:0;transition:opacity .4s}
+.is-in .cdot{opacity:1;transition-delay:1.1s}
+
+/* ============ 03 차별점 ============ */
+.vs{margin-top:52px;border:1px solid var(--line);background:#fff}
+.vs-head{display:grid;grid-template-columns:1fr 1fr 1fr}
+.vs-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--line)}
+.vs-cell{padding:20px clamp(14px,2vw,26px);display:flex;align-items:center}
+.vs-key{
+  font-size:14px;font-weight:600;letter-spacing:-.02em;color:var(--ink-2);
+  background:var(--bg-alt);border-right:1px solid var(--line);
+}
+.vs-them{color:var(--grey-d);font-size:15px;line-height:1.6;letter-spacing:-.01em;border-right:1px solid var(--line)}
+.vs-us{color:var(--ink);font-size:15px;font-weight:700;line-height:1.6;letter-spacing:-.02em;background:var(--blue-wash);position:relative}
+.vs-us::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--blue)}
+.vs-head .vs-cell{padding-top:17px;padding-bottom:17px}
+.vs-th{
+  font-size:13px;font-weight:600;letter-spacing:-.01em;color:var(--grey-d);
+  border-right:1px solid var(--line);background:var(--bg-alt);
+}
+.vs-them-h{font-size:14.5px;font-weight:700;color:var(--ink-2);border-right:1px solid var(--line)}
+.vs-us-h{
+  font-size:14.5px;font-weight:800;color:#fff;background:var(--blue);
+  letter-spacing:-.01em;display:flex;align-items:center;gap:8px;
+}
+.vs-us-h .dot{width:6px;height:6px;border-radius:50%;background:#fff;flex-shrink:0}
+@media(max-width:760px){
+  .vs-head{display:none}
+  .vs-row{grid-template-columns:1fr;border-top:none;border-bottom:1px solid var(--line)}
+  .vs-row:last-child{border-bottom:none}
+  .vs-cell{border-right:none!important;padding:13px 18px;align-items:flex-start}
+  .vs-key{border-bottom:1px solid var(--line);padding-top:15px;padding-bottom:15px}
+  .vs-them{border-bottom:1px solid var(--line-soft)}
+  .vs-them::before,.vs-us::before{
+    position:static;width:auto;height:auto;background:none;flex:0 0 66px;
+    font-size:12px;font-weight:600;letter-spacing:-.01em;
+    line-height:1.72;margin-right:12px;
+  }
+  .vs-them::before{content:'일반 대행';color:var(--grey-2)}
+  .vs-us::before{content:'퍼널';color:var(--blue);font-weight:700}
+}
+
+/* ============ 04 서비스 ============ */
+.services{background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.services .blueprint{
+  background-image:
+    linear-gradient(to right,rgba(255,255,255,.045) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(255,255,255,.045) 1px,transparent 1px);
+}
+.services .sec-label::after{background:rgba(255,255,255,.13)}
+.services .sec-label{color:rgba(255,255,255,.4)}
+.services .sec-label b{color:#8FB6E3}
+.services .sec-sub{color:rgba(255,255,255,.55)}
+.svc-list{margin-top:52px;display:flex;flex-direction:column}
+.svc{
+  display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,40px);align-items:center;
+  padding:clamp(22px,3vw,30px) clamp(18px,3vw,34px);
+  border-top:1px solid rgba(255,255,255,.11);
+  position:relative;transition:background .3s,padding-left .3s;
+}
+.svc:last-child{border-bottom:1px solid rgba(255,255,255,.11)}
+.svc::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--blue);
+  transform:scaleY(0);transform-origin:top;transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.svc:hover{background:rgba(255,255,255,.035)}
+.svc:hover::before{transform:scaleY(1)}
+.svc-no{font-family:var(--mono);font-size:12px;color:#8FB6E3;letter-spacing:.1em;font-weight:500;width:26px}
+.svc-body h3{font-size:clamp(18px,2.6vw,23px);font-weight:800;letter-spacing:-.03em;margin-bottom:7px}
+.svc-body p{font-size:14.5px;color:rgba(255,255,255,.55);line-height:1.7;max-width:52ch}
+.svc-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;max-width:230px}
+.tag{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.03em;
+  padding:5px 10px;border:1px solid rgba(255,255,255,.16);border-radius:2px;
+  color:rgba(255,255,255,.7);white-space:nowrap;
+}
+.svc:last-child .tag{border-color:rgba(143,182,227,.4);color:#8FB6E3}
+@media(max-width:820px){
+  .svc{grid-template-columns:auto 1fr;gap:16px}
+  .svc-tags{grid-column:2;justify-content:flex-start;max-width:none;margin-top:12px}
+}
+/* 퍼널 폭 감소 시각화 */
+.svc-body{position:relative}
+.svc-w{height:2px;background:rgba(255,255,255,.09);margin-top:14px;position:relative;max-width:340px}
+.svc-w i{position:absolute;left:0;top:0;height:100%;background:#8FB6E3;width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.is-in .svc-w i{width:var(--w)}
+
+/* ============ 05 CTA ============ */
+.cta{background:var(--bg-alt);border-top:1px solid var(--line)}
+.cta-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(32px,5vw,72px);align-items:start}
+@media(max-width:900px){.cta-grid{grid-template-columns:1fr;gap:44px}}
+.cta-left h2{font-size:clamp(26px,4.2vw,42px);font-weight:800;letter-spacing:-.035em;line-height:1.25;margin-bottom:18px}
+.cta-left p{font-size:16px;color:var(--grey);line-height:1.8;margin-bottom:30px;max-width:40ch}
+.direct{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)}
+.direct a,.direct div{display:flex;align-items:center;gap:14px;padding:17px 20px;background:#fff;transition:background .2s}
+.direct a:hover{background:var(--blue-wash)}
+.direct .ic{width:34px;height:34px;border:1px solid var(--line);display:grid;place-items:center;color:var(--blue);flex-shrink:0;border-radius:2px}
+.direct .k{font-family:var(--mono);font-size:10px;letter-spacing:.11em;color:var(--grey-2);display:block;margin-bottom:2px}
+.direct .v{font-size:15px;font-weight:600;letter-spacing:-.01em}
+.direct .v.m{font-family:var(--mono);font-weight:500;font-size:15.5px}
+
+/* 폼 */
+.form-box{background:#fff;border:1px solid var(--line);padding:clamp(24px,3.5vw,40px);position:relative}
+.form-box::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;height:3px;background:var(--blue)}
+.form-hd{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px}
+.form-hd h3{font-size:19px;font-weight:800;letter-spacing:-.025em}
+.form-hd span{font-family:var(--mono);font-size:10.5px;color:var(--grey-2);letter-spacing:.08em}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:560px){.f-row{grid-template-columns:1fr;gap:0}.f-row .field{margin-bottom:14px}}
+.f-row .field{margin-bottom:0}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}
+.field label{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;color:var(--grey)}
+.field label em{color:var(--blue);font-style:normal;margin-left:3px}
+.field input,.field textarea,.field select{
+  width:100%;padding:13px 14px;background:#fff;border:1px solid var(--line);border-radius:2px;
+  font-size:15px;letter-spacing:-.01em;transition:border-color .2s,box-shadow .2s;
+}
+.field textarea{resize:vertical;min-height:96px;line-height:1.65}
+.field select{
+  appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:38px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23767E87' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat;background-position:right 14px center;
+}
+.field select:invalid,.field select option[value=""]{color:#A2A9B1}
+.field input:focus,.field textarea:focus,.field select:focus{
+  outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(65,118,181,.12);
+}
+.field input::placeholder,.field textarea::placeholder{color:#A2A9B1}
+.field.err input,.field.err textarea{border-color:#D9534F}
+.agree{display:flex;align-items:flex-start;gap:10px;margin:6px 0 20px;cursor:pointer}
+.agree input{width:17px;height:17px;margin-top:2px;accent-color:var(--blue);flex-shrink:0;cursor:pointer}
+.agree span{font-size:12.5px;color:var(--grey);line-height:1.6}
+.agree a{color:var(--blue);text-decoration:underline;text-underline-offset:2px}
+.submit{width:100%;padding:17px;font-size:16px}
+.form-msg{
+  margin-top:14px;padding:13px 15px;border-radius:2px;font-size:13.5px;line-height:1.6;display:none;
+}
+.form-msg.ok{display:block;background:rgba(46,158,100,.1);color:#1F7A4C;border:1px solid rgba(46,158,100,.25)}
+.form-msg.no{display:block;background:rgba(217,83,79,.08);color:#B4433F;border:1px solid rgba(217,83,79,.22)}
+
+/* ============ FOOTER ============ */
+footer{background:#fff;border-top:1px solid var(--line);padding:52px 0 100px}
+.ft{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ft-logo{font-weight:800;font-size:17px;letter-spacing:-.02em;margin-bottom:14px;display:flex;align-items:baseline}
+.ft-info{font-family:var(--mono);font-size:11.5px;color:var(--grey);line-height:2;letter-spacing:.01em}
+.ft-info b{color:var(--ink-2);font-weight:500;margin-right:7px}
+.ft-copy{font-family:var(--mono);font-size:10.5px;color:var(--grey-2);letter-spacing:.06em;align-self:flex-end}
+@media(max-width:640px){footer{padding-bottom:110px}}
+
+/* ============ 모바일 플로팅 바 ============ */
+.float{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;
+  background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+  gap:9px;box-shadow:0 -10px 30px -22px rgba(14,17,20,.7);
+  transform:translateY(110%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.float.on{transform:translateY(0)}
+.float a{flex:1;padding:14px 10px;font-size:14.5px}
+.float a.tel{flex:0 0 44%}
+@media(max-width:820px){.float{display:flex}}
+
+/* 스크롤 리빌 */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+.rv.is-in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+  .stage{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="hd">
+  <div class="wrap hd">
+    <a href="#top" class="logo">FUNNEL<span class="dot"></span><span class="mk">MARKETING</span></a>
+    <div class="hd-right">
+      <a href="tel:01089812510" class="hd-tel mono"><span>010-8981-2510</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-primary hd-cta">무료 진단</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 01 HERO ============ -->
+<section class="hero" id="top">
+  <div class="blueprint"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow"><i></i>아파트 · 주거시설 분양 마케팅</div>
+      <h1>분양은 <span class="hl">감으로</span><br>하는 게 아닙니다</h1>
+      <p class="hero-lead">수량은 이미 충분합니다. 문제는 질입니다.</p>
+      <p class="hero-desc">지금 받고 계신 DB가 <b>몇 %나 통화로 이어지는지</b>부터 진단합니다. 그리고 광고를 그 숫자를 올리는 방향으로만 운영합니다.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">내 현장 DB 무료 진단
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="tel:01089812510" class="btn btn-ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+          바로 통화하기</a>
+      </div>
+      <div class="hero-note">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        지금 다른 대행사를 쓰고 계셔도, 진단은 무료로 해드립니다
+      </div>
+    </div>
+
+    <div class="funnel">
+      <div class="funnel-frame">
+        <div class="funnel-cap"><span>FUNNEL STRUCTURE</span><span>01 → 04</span></div>
+        <div class="stage">
+          <span class="stage-nm">여론 형성</span>
+          <span class="stage-ch">블로그 · 카페</span>
+        </div>
+        <div class="stage">
+          <span class="stage-nm">광고 유입</span>
+          <span class="stage-ch">네이버 · 구글 · 메타 · 유튜브</span>
+        </div>
+        <div class="stage">
+          <span class="stage-nm">유효 DB</span>
+          <span class="stage-ch">검수 · 선별</span>
+        </div>
+        <div class="stage">
+          <span class="stage-nm">계약</span>
+          <span class="stage-ch">완판</span>
+        </div>
+        <div class="funnel-foot">각 단계의 이탈률을 데이터로 추적합니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 리포트 ============ -->
+<section class="reports">
+  <div class="wrap">
+    <div class="sec-label rv"><b>02</b> / 05 &nbsp;DB QUALITY</div>
+    <h2 class="sec-title rv">DB의 질은 느낌이 아니라<br>숫자로 잽니다</h2>
+    <p class="sec-sub rv rv-d1">어느 매체의 DB가 실제로 통화까지 가는지, 어디서 죽는지, 그래서 다음 주에 무엇을 바꿀 것인지. 퍼널마케팅은 이 세 가지를 매주 문서로 보고합니다.</p>
+
+    <div class="rep-grid">
+      <!-- 카드 1 -->
+      <div class="card rv">
+        <div class="card-hd"><span class="card-no">CRM</span><span class="card-live"><i></i>REAL-TIME</span></div>
+        <h3>리드 파이프라인</h3>
+        <p class="d">유입된 DB가 통화 → 방문 → 계약 중 어디서 멈추는지 실시간으로 봅니다.</p>
+        <div class="card-viz">
+          <div class="pipe">
+            <div class="pipe-row"><span class="pipe-lb">DB 유입</span><div class="pipe-track"><div class="pipe-fill" data-w="100"></div></div><span class="pipe-vl">100%</span></div>
+            <div class="pipe-row"><span class="pipe-lb">통화 완료</span><div class="pipe-track"><div class="pipe-fill" data-w="72"></div></div><span class="pipe-vl">72%</span></div>
+            <div class="pipe-row"><span class="pipe-lb">방문 예약</span><div class="pipe-track"><div class="pipe-fill" data-w="41"></div></div><span class="pipe-vl">41%</span></div>
+            <div class="pipe-row"><span class="pipe-lb">계약 상담</span><div class="pipe-track"><div class="pipe-fill" data-w="19"></div></div><span class="pipe-vl">19%</span></div>
+          </div>
+        </div>
+        <div class="card-cap">* 실제 운영 리포트 양식 예시입니다</div>
+      </div>
+
+      <!-- 카드 2 -->
+      <div class="card rv rv-d1">
+        <div class="card-hd"><span class="card-no">WEEKLY</span><span class="card-live"><i></i>매주 발송</span></div>
+        <h3>매체별 DB 품질</h3>
+        <p class="d">어느 매체가 실제로 살아있는 DB를 주는지 한 장으로 정리합니다.</p>
+        <div class="card-viz">
+          <table class="rtab">
+            <thead><tr><th>매체</th><th>DB</th><th>유효율</th></tr></thead>
+            <tbody>
+              <tr><td>네이버</td><td>128</td><td>82%</td></tr>
+              <tr><td>메타</td><td>214</td><td>76%</td></tr>
+              <tr><td>구글</td><td>76</td><td>88%</td></tr>
+              <tr><td>유튜브</td><td>93</td><td>71%</td></tr>
+              <tr><td>합계</td><td>511</td><td>78%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="card-cap">* 실제 운영 리포트 양식 예시입니다</div>
+      </div>
+
+      <!-- 카드 3 -->
+      <div class="card rv rv-d2">
+        <div class="card-hd"><span class="card-no">GROWTH</span><span class="card-live"><i></i>주차별 개선</span></div>
+        <h3>유효율 추이</h3>
+        <p class="d">타겟이 정교해질수록 죽은 DB가 줄어듭니다. 6주면 숫자가 눈에 띄게 움직입니다.</p>
+        <div class="card-viz chart">
+          <svg viewBox="0 0 260 110" preserveAspectRatio="none" aria-label="주차별 DB 유효율 추이 그래프">
+            <line x1="0" y1="20" x2="260" y2="20" stroke="#EFF2F5" stroke-width="1"/>
+            <line x1="0" y1="55" x2="260" y2="55" stroke="#EFF2F5" stroke-width="1"/>
+            <line x1="0" y1="90" x2="260" y2="90" stroke="#E2E6EB" stroke-width="1"/>
+            <path class="cline" d="M6 88 L58 76 L110 66 L162 46 L214 34 L254 22"
+                  fill="none" stroke="#4176B5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="cdot" cx="254" cy="22" r="4.5" fill="#4176B5"/>
+            <circle class="cdot" cx="254" cy="22" r="9" fill="#4176B5" opacity=".16"/>
+          </svg>
+          <div class="chart-x"><span>1주</span><span>2주</span><span>3주</span><span>4주</span><span>5주</span><span>6주</span></div>
+          <div>
+            <span class="chart-delta">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 15l7-7 7 7"/></svg>
+              6주간 유효율 &plus;26%p
+            </span>
+          </div>
+        </div>
+        <div class="card-cap">* 리포트 양식 예시 · 실제 수치는 현장 조건에 따라 다릅니다</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 차별점 ============ -->
+<section>
+  <div class="blueprint"></div>
+  <div class="wrap">
+    <div class="sec-label rv"><b>03</b> / 05 &nbsp;WHY FUNNEL</div>
+    <h2 class="sec-title rv">같은 DB 100건인데<br>결과가 다른 이유</h2>
+    <p class="sec-sub rv rv-d1">대부분의 대행사는 DB를 '채웁니다'. 퍼널마케팅은 DB를 '고칩니다'. 이 차이가 넉 달 뒤 계약 건수를 가릅니다.</p>
+
+    <div class="vs rv rv-d1">
+      <div class="vs-head">
+        <div class="vs-cell vs-th">기준</div>
+        <div class="vs-cell vs-them-h">일반 대행사</div>
+        <div class="vs-cell vs-us-h"><span class="dot"></span>퍼널마케팅</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-key">판단 기준</div>
+        <div class="vs-cell vs-them">담당자의 감과 경험</div>
+        <div class="vs-cell vs-us">CRM에 쌓인 실제 데이터</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-key">보고 방식</div>
+        <div class="vs-cell vs-them">월말에 한 번, 한 일 나열로 끝</div>
+        <div class="vs-cell vs-us">매주 성과와 다음 액션까지</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-key">DB 품질</div>
+        <div class="vs-cell vs-them">수량만 채우면 끝</div>
+        <div class="vs-cell vs-us">유효율을 재고 매주 끌어올림</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-cell vs-key">매체 운영</div>
+        <div class="vs-cell vs-them">하던 매체만 반복</div>
+        <div class="vs-cell vs-us">유효율 높은 매체로 예산 재배분</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 서비스 ============ -->
+<section class="services">
+  <div class="blueprint"></div>
+  <div class="wrap">
+    <div class="sec-label rv"><b>04</b> / 05 &nbsp;SERVICE</div>
+    <h2 class="sec-title rv">인식을 만들고, 유입을 만들고,<br>계약될 DB만 남깁니다</h2>
+    <p class="sec-sub rv rv-d1">퍼널의 위에서 아래로. 다섯 단계가 하나의 흐름으로 돌아갑니다.</p>
+
+    <div class="svc-list">
+      <div class="svc rv">
+        <span class="svc-no">01</span>
+        <div class="svc-body">
+          <h3>여론 형성</h3>
+          <p>현장명을 검색했을 때 무엇이 보이는지가 첫인상을 결정합니다. 블로그와 네이버 카페에서 시장의 인식을 먼저 만들어 둡니다.</p>
+          <div class="svc-w" style="--w:100%"><i></i></div>
+        </div>
+        <div class="svc-tags"><span class="tag">네이버 블로그</span><span class="tag">카페</span></div>
+      </div>
+
+      <div class="svc rv">
+        <span class="svc-no">02</span>
+        <div class="svc-body">
+          <h3>검색 · 디스플레이 광고</h3>
+          <p>이미 관심이 있어 검색하는 수요를 놓치지 않습니다. 키워드와 지면을 데이터로 좁혀 불필요한 노출을 걷어냅니다.</p>
+          <div class="svc-w" style="--w:82%"><i></i></div>
+        </div>
+        <div class="svc-tags"><span class="tag">네이버</span><span class="tag">구글</span></div>
+      </div>
+
+      <div class="svc rv">
+        <span class="svc-no">03</span>
+        <div class="svc-body">
+          <h3>소셜 · 영상</h3>
+          <p>아직 검색하지 않은 잠재 수요까지 끌어옵니다. 숏폼과 피드 광고로 관심 없던 사람을 관심 있는 사람으로 바꿉니다.</p>
+          <div class="svc-w" style="--w:64%"><i></i></div>
+        </div>
+        <div class="svc-tags"><span class="tag">메타</span><span class="tag">유튜브 숏폼</span><span class="tag">릴스</span></div>
+      </div>
+
+      <div class="svc rv">
+        <span class="svc-no">04</span>
+        <div class="svc-body">
+          <h3>DB 진단 · 검수</h3>
+          <p>수량만 채운 DB는 현장 상담원의 하루를 태웁니다. 허수와 중복을 걸러내고, 실제로 연결되는 DB만 전달합니다.</p>
+          <div class="svc-w" style="--w:46%"><i></i></div>
+        </div>
+        <div class="svc-tags"><span class="tag">중복 필터</span><span class="tag">유효성 검수</span></div>
+      </div>
+
+      <div class="svc rv">
+        <span class="svc-no">05</span>
+        <div class="svc-body">
+          <h3>데이터 그로스</h3>
+          <p>여기서부터가 진짜 일입니다. CRM에 쌓인 결과로 매체별 예산을 다시 짜고, 유효율과 전환율을 매주 끌어올립니다. 그리고 그 과정을 전부 보고드립니다.</p>
+          <div class="svc-w" style="--w:30%"><i></i></div>
+        </div>
+        <div class="svc-tags"><span class="tag">CRM</span><span class="tag">주간 리포트</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 CTA ============ -->
+<section class="cta" id="contact">
+  <div class="wrap cta-grid">
+    <div class="cta-left">
+      <div class="sec-label rv"><b>05</b> / 05 &nbsp;CONTACT</div>
+      <h2 class="rv">지금 받고 계신 DB부터<br>보여주세요</h2>
+      <p class="rv rv-d1">지역, 세대수, 지금 DB가 어떻게 들어오고 있는지만 알려주시면 어디서 새고 있는지 진단해 회신드립니다. 다른 대행사를 쓰고 계셔도 진단은 무료입니다.</p>
+
+      <div class="direct rv rv-d1">
+        <a href="tel:01089812510">
+          <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+          <span><span class="k">TEL</span><span class="v m">010-8981-2510</span></span>
+        </a>
+        <a href="mailto:dbslzhs1515@gmail.com">
+          <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
+          <span><span class="k">E-MAIL</span><span class="v m">dbslzhs1515@gmail.com</span></span>
+        </a>
+        <div>
+          <span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span><span class="k">OFFICE</span><span class="v">남양주시 별내동 파라곤스퀘어 M동 1416</span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-box rv rv-d1">
+      <div class="form-hd">
+        <h3>DB 무료 진단 신청</h3>
+        <span>24H 내 회신</span>
+      </div>
+      <form id="leadForm" novalidate>
+        <div class="f-row">
+          <div class="field"><label for="company">회사명 <em>*</em></label>
+            <input type="text" id="company" name="company" placeholder="(주)○○개발" autocomplete="organization"></div>
+          <div class="field"><label for="companyType">회사 구분</label>
+            <select id="companyType" name="companyType">
+              <option value="">선택해 주세요</option>
+              <option>시행사</option>
+              <option>시공사</option>
+              <option>분양대행사</option>
+              <option>신탁사</option>
+              <option>광고대행사</option>
+              <option>개인/기타</option>
+            </select></div>
+        </div>
+        <div class="f-row">
+          <div class="field"><label for="name">담당자명 <em>*</em></label>
+            <input type="text" id="name" name="name" placeholder="홍길동 부장" autocomplete="name"></div>
+          <div class="field"><label for="phone">연락처 <em>*</em></label>
+            <input type="tel" id="phone" name="phone" placeholder="010-0000-0000" inputmode="tel" autocomplete="tel"></div>
+        </div>
+        <div class="f-row">
+          <div class="field"><label for="site">현장명</label>
+            <input type="text" id="site" name="site" placeholder="○○ 아이파크"></div>
+          <div class="field"><label for="region">지역</label>
+            <input type="text" id="region" name="region" placeholder="경기 남양주시"></div>
+        </div>
+        <div class="field"><label for="message">현장 상황 · 문의 내용</label>
+          <textarea id="message" name="message" placeholder="세대수, 분양 시기, 지금 받고 계신 DB 수량과 통화 연결률 등을 알려주시면 더 정확한 진단이 가능합니다."></textarea></div>
+
+        <label class="agree">
+          <input type="checkbox" id="agree">
+          <span>상담 진행을 위한 개인정보(회사명·담당자명·연락처) 수집 및 이용에 동의합니다. 수집된 정보는 상담 목적으로만 사용되며 3년 후 파기됩니다.</span>
+        </label>
+
+        <button type="submit" class="btn btn-primary submit" id="submitBtn">DB 무료 진단 받기
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </button>
+        <div class="form-msg" id="formMsg"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap ft">
+    <div>
+      <div class="ft-logo">FUNNEL<span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--blue);display:inline-block;margin-left:4px;transform:translateY(-7px)"></span><span class="mk" style="font-weight:500;font-size:12px;letter-spacing:.06em;color:var(--grey);margin-left:7px">MARKETING</span></div>
+      <div class="ft-info">
+        <b>상호</b>퍼널마케팅<br>
+        <b>대표</b>김현우 · 최민철<br>
+        <b>사업자등록번호</b>868-24-01978<br>
+        <b>주소</b>경기도 남양주시 별내동 파라곤스퀘어 M동 1416<br>
+        <b>문의</b>010-8981-2510 · dbslzhs1515@gmail.com
+      </div>
+    </div>
+    <div class="ft-copy">© 2026 FUNNEL MARKETING. ALL RIGHTS RESERVED.</div>
+  </div>
+</footer>
+
+<!-- ============ 모바일 플로팅 CTA ============ -->
+<div class="float" id="float">
+  <a href="tel:01089812510" class="btn btn-ghost tel">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+    전화 상담</a>
+  <a href="#contact" class="btn btn-primary">DB 무료 진단</a>
+</div>
+
+<script>
+/* ==========================================================
+   [설정] 문의접수 시트 직결 (Google Apps Script)
+   ----------------------------------------------------------
+   apps-script.gs 를 시트에 붙여넣고 웹 앱으로 배포하면
+   나오는 주소를 아래 ENDPOINT 에 넣으세요.
+   신청이 '문의접수' 시트에 한 줄씩 자동으로 꽂힙니다.
+   (A열 문의번호 · W열 D-Day 수식은 건드리지 않습니다)
+
+   비워두면 메일 앱으로 대신 연결되므로 연동 전에도 문의를 놓치지 않습니다.
+   설정 방법은 SETUP.md 참고.
+   ========================================================== */
+const ENDPOINT = '';   // 예: 'https://script.google.com/macros/s/AKfyc.../exec'
+const FALLBACK_EMAIL = 'dbslzhs1515@gmail.com';
+
+/* ---------- 헤더 그림자 + 플로팅 바 ---------- */
+const hd = document.getElementById('hd');
+const float = document.getElementById('float');
+const contact = document.getElementById('contact');
+
+let ticking = false;
+function onScroll(){
+  const y = window.scrollY;
+  hd.classList.toggle('stuck', y > 8);
+
+  // 히어로를 지났고, 문의 폼이 화면에 들어오기 전까지만 플로팅 바 노출
+  const contactTop = contact.getBoundingClientRect().top;
+  float.classList.toggle('on', y > 420 && contactTop > window.innerHeight * 0.6);
+  ticking = false;
+}
+window.addEventListener('scroll', () => {
+  if(!ticking){ requestAnimationFrame(onScroll); ticking = true; }
+}, {passive:true});
+onScroll();
+
+/* ---------- 스크롤 리빌 ---------- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return;
+    e.target.classList.add('is-in');
+
+    // 파이프라인 바 채우기
+    e.target.querySelectorAll('.pipe-fill').forEach(f => { f.style.width = f.dataset.w + '%'; });
+
+    io.unobserve(e.target);
+  });
+}, {threshold:.18, rootMargin:'0px 0px -8% 0px'});
+
+document.querySelectorAll('.rv, .card, .svc').forEach(el => io.observe(el));
+
+/* ---------- 폼 ---------- */
+const form = document.getElementById('leadForm');
+const msg  = document.getElementById('formMsg');
+const btn  = document.getElementById('submitBtn');
+
+function show(type, text){
+  msg.className = 'form-msg ' + type;
+  msg.textContent = text;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const data = {
+    company:     form.company.value.trim(),
+    companyType: form.companyType.value,
+    name:        form.name.value.trim(),
+    phone:       form.phone.value.trim(),
+    site:        form.site.value.trim(),
+    region:      form.region.value.trim(),
+    message:     form.message.value.trim()
+  };
+
+  // 검증
+  document.querySelectorAll('.field').forEach(f => f.classList.remove('err'));
+  const required = [['company','회사명'],['name','담당자명'],['phone','연락처']];
+  const missing = required.filter(([k]) => !data[k]);
+  if(missing.length){
+    missing.forEach(([k]) => form[k].closest('.field').classList.add('err'));
+    form[missing[0][0]].focus();
+    return show('no', missing.map(m => m[1]).join(', ') + '을(를) 입력해 주세요.');
+  }
+  if(!/^[0-9\-\s+()]{9,20}$/.test(data.phone)){
+    form.phone.closest('.field').classList.add('err');
+    form.phone.focus();
+    return show('no', '연락처 형식을 확인해 주세요.');
+  }
+  if(!document.getElementById('agree').checked){
+    return show('no', '개인정보 수집 및 이용에 동의해 주세요.');
+  }
+
+  btn.disabled = true;
+  btn.style.opacity = '.6';
+  btn.textContent = '전송 중...';
+
+  if(ENDPOINT){
+    try{
+      // Apps Script 웹 앱은 CORS 응답을 못 주므로 no-cors 로 보냅니다.
+      // text/plain 을 써야 preflight 없이 통과합니다.
+      await fetch(ENDPOINT, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body: JSON.stringify(data)
+      });
+      form.reset();
+      show('ok', '신청이 접수되었습니다. 영업일 기준 24시간 내에 010-8981-2510 으로 연락드리겠습니다.');
+    }catch(err){
+      show('no', '전송에 실패했습니다. 010-8981-2510 으로 전화 주시면 바로 도와드리겠습니다.');
+    }
+  }else{
+    // 시트 미연동 상태 — 메일 앱으로 전달
+    const subject = encodeURIComponent(`[분양 진단 신청] ${data.company} / ${data.name}`);
+    const bodyTxt = encodeURIComponent(
+      `회사명: ${data.company}\n회사 구분: ${data.companyType || '-'}\n담당자명: ${data.name}\n` +
+      `연락처: ${data.phone}\n현장명: ${data.site || '-'}\n지역: ${data.region || '-'}\n\n문의 내용\n${data.message || '-'}`
+    );
+    window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${bodyTxt}`;
+    show('ok', '메일 앱이 열립니다. 전송해 주시면 24시간 내에 회신드리겠습니다.');
+  }
+
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.innerHTML = 'DB 무료 진단 받기 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 6l6 6-6 6"/></svg>';
+});
+
+/* 연락처 자동 하이픈 */
+form.phone.addEventListener('input', (e) => {
+  let v = e.target.value.replace(/[^0-9]/g,'').slice(0,11);
+  if(v.length > 7)      v = v.replace(/(\d{3})(\d{4})(\d+)/, '$1-$2-$3');
+  else if(v.length > 3) v = v.replace(/(\d{3})(\d+)/, '$1-$2');
+  e.target.value = v;
+});
+</script>
+</body>
+</html>
